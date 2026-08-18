@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><title>UC Live Bridge</title>
+<style>
+body{font:13px/1.5 -apple-system,Segoe UI,sans-serif;background:#0d1420;color:#dfe7f3;margin:0;padding:18px;max-width:760px}
+h1{font-size:16px;margin:0 0 4px}.sub{color:#8b98ab;font-size:12px;margin-bottom:14px}
+button{background:#1f6feb;color:#fff;border:0;border-radius:6px;padding:8px 14px;font-size:13px;cursor:pointer;margin-right:8px}
+button.warn{background:#6b7280}button.on{background:#1a7f37}
+.card{background:#141d2c;border:1px solid #253248;border-radius:8px;padding:12px 14px;margin:10px 0}
+.k{color:#8b98ab}.ok{color:#3fb950}.bad{color:#f85149}
+#log{font-family:ui-monospace,monospace;font-size:11px;white-space:pre-wrap;max-height:340px;overflow:auto;background:#0a0f18;border-radius:6px;padding:10px;margin-top:8px}
+</style></head><body>
+<h1>UC Live Bridge <span id="ver" class="k"></span></h1>
+<div class="sub">Keep this tab open (pin it). Claude reads captures and drops commands through the connected folder.</div>
+<div class="card">
+  <div>Folder: <b id="dir" class="k">not connected</b> <span id="perm"></span></div>
+  <div style="margin-top:8px">
+    <button id="connect">Connect Claude-Vault/uc-live</button>
+    <button id="regrant" class="warn" style="display:none">Re-grant access</button>
+  </div>
+</div>
+<div class="card">
+  <div>Bridge: <b id="state" class="bad">stopped</b> · commands run every second · captures stream on every page change</div>
+  <div style="margin-top:8px"><button id="run">Start bridge</button>
+  <button id="capAll" class="warn">Capture ALL tabs now</button></div>
+</div>
+<div id="paywall" class="card" style="display:none;border-color:#2563eb;background:#12203a">
+  <b>UC Live Bridge — unlock AI browser control</b>
+  <div class="k" style="margin:6px 0">Capture stays free forever. The Live Bridge (AI drives your real browser) is $19/mo.</div>
+  <button id="btnTrial">Start 7-day free trial</button>
+  <button id="btnUpgrade" class="warn">Upgrade $19/mo</button>
+</div>
+<div class="card"><div class="k">Activity</div><div id="log"></div></div>
+<script src="bridge.js"></script></body></html>
