@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Adler Universal Capture</title>
+<style>
+  /* html gets the width too - a popup sized only by body can render far wider than
+     its content on some Chrome builds */
+  html { width: 268px; overflow-x: hidden; }
+  body { font: 13px -apple-system, Segoe UI, sans-serif; width: 268px; box-sizing: border-box; margin: 0; padding: 14px; color: #0f2740; }
+  h2 { margin: 0 0 4px; font-size: 15px; }
+  .sub { font-size: 11px; color: #6b7280; margin-bottom: 10px; }
+  .stat { background: #f3f4f6; border-radius: 8px; padding: 9px 10px; margin-bottom: 10px; }
+  .stat b { font-size: 17px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; }
+  .row + .row { margin-top: 4px; }
+  .muted { color: #6b7280; font-size: 11px; }
+  button { width: 100%; padding: 9px; margin: 4px 0; border: 0; border-radius: 6px; cursor: pointer; font-weight: 600; color: #fff; font-size: 13px; }
+  #rec { background: #1a7f37; } #rec.on { background: #b42318; }
+  #cap { background: #1f6feb; } #vault { background: #374151; } #bridge { background: #6d28d9; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #6b7280; display: inline-block; margin-right: 5px; }
+  .dot.on { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+  .opts { margin-top: 10px; border-top: 1px solid #e5e7eb; padding-top: 8px; font-size: 11px; color: #374151; }
+  .opts label { display: block; margin: 3px 0; cursor: pointer; }
+  #status { margin-top: 8px; font-size: 11px; color: #6b7280; min-height: 14px; }
+  kbd { background: #eef1f5; border: 1px solid #d6dbe2; border-radius: 3px; padding: 0 4px; font-size: 10px; }
+  .ver { font-size: 11px; color: #9ca3af; font-weight: 400; }
+  .keys { font-size: 10.5px; margin-bottom: 9px; line-height: 1.6; }
+  .keys .ok { color: #166534; }
+  .keys .bad { color: #92400e; }
+  .keys button { width: auto; padding: 3px 8px; margin: 3px 0 0; background: #92400e; font-size: 10.5px; }
+  .pagestat { font-size: 11px; padding: 6px 8px; border-radius: 6px; margin-bottom: 9px; background: #eef1f5; color: #475569; }
+  .pagestat.ready { background: #e7f6ec; color: #166534; }
+  .pagestat.blocked { background: #fdeceb; color: #991b1b; }
+  .pagestat.cold { background: #fef6e7; color: #92400e; }
+</style>
+</head>
+<body>
+  <h2>Adler Universal Capture <span id="ver" class="ver"></span></h2>
+  <div class="sub"><kbd>&#8679;S</kbd> capture &nbsp; <kbd>&#8679;E</kbd> record &nbsp;<span class="muted">(on any page)</span></div>
+  <div id="keys" class="keys"></div>
+
+  <div class="stat">
+    <div class="row"><span><span id="dot" class="dot"></span><b id="mode">Idle</b></span></div>
+    <div class="row"><span class="muted">this session</span><span><b id="sessCount">0</b> caps &middot; <span id="sessBytes">0 KB</span></span></div>
+    <div class="row"><span class="muted">vault total</span><span><b id="totCount">0</b> caps &middot; <span id="totBytes">0 KB</span></span></div>
+  </div>
+
+  <div id="page" class="pagestat">checking this page...</div>
+
+  <button id="rec">Start recording</button>
+  <button id="cap">Capture this page</button>
+  <button id="vault">Open Vault &amp; export</button>
+  <button id="bridge">Save vault to Claude folder</button>
+
+  <div class="opts">
+    <label><input type="checkbox" id="autoExport" /> <b>auto-save to Claude folder</b> when recording stops</label>
+    <div class="muted" style="margin:2px 0 6px 18px">Downloads / <span id="folderName">adler-captures</span> <span id="lastExport"></span></div>
+    <label><input type="checkbox" id="onClick" /> capture on click</label>
+    <label><input type="checkbox" id="onNav" /> capture on navigation</label>
+    <label><input type="checkbox" id="onMutation" /> capture on page change</label>
+    <label><input type="checkbox" id="keepRawHtml" /> store raw HTML</label>
+    <label><input type="checkbox" id="keepCleanHtml" /> store clean HTML</label>
+    <label><input type="checkbox" id="showHud" /> show the on-page panel</label>
+  </div>
+  <div id="status"></div>
+  <div style="margin-top:8px;border-top:1px solid #2a3550;padding-top:8px">
+  <button id="openBridge" style="width:100%">⚡ Open Live Bridge (Claude control)</button>
+</div>
+<script src="popup.js"></script>
+</body>
+</html>
